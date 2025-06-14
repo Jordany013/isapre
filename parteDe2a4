@@ -1,0 +1,76 @@
+        elif opcion == 2:
+            print("\n--- Buscar Afiliado por RUT ---")
+            
+            if not afiliados:
+                print("No hay afiliados registrados. Use la opción 1 primero.")
+                continue
+                
+            rut_buscar = input("Ingrese RUT a buscar (con formato 12345678-9): ").strip().upper()
+            encontrado = False
+            
+            for afiliado in afiliados:
+                if afiliado["rut"] == rut_buscar:
+                    print("\n=== Información del Afiliado ===")
+                    print(f"ID: {afiliado['id']}")
+                    print(f"Nombre: {afiliado['nombre']}")
+                    print(f"RUT: {afiliado['rut']}")
+                    print(f"Edad: {afiliado['edad']} años")
+                    print(f"Estado civil: {afiliado['estado_civil']}")
+                    print(f"Monto plan: ${afiliado['monto']}")
+                    print("=" * 30)
+                    encontrado = True
+                    break
+            
+            if not encontrado:
+                print(f"No se encontró ningún afiliado con RUT: {rut_buscar}")
+                
+        elif opcion == 3:
+            if not afiliados:
+                print("\nNo hay afiliados registrados. Use la opción 1 primero.")
+                continue
+                
+            print("\n--- Imprimir Certificados ---")
+            print("Afiliados disponibles:")
+            for afiliado in afiliados:
+                print(f"ID: {afiliado['id']} - {afiliado['nombre']}")
+            
+            try:
+                seleccion = int(input("Seleccione el ID del afiliado: "))
+                afiliado_encontrado = None
+                
+                for afiliado in afiliados:
+                    if afiliado["id"] == seleccion:
+                        afiliado_encontrado = afiliado
+                        break
+                
+                if afiliado_encontrado:
+                    print("\n" + "="*50)
+                    print("CERTIFICADO DE AFILIACIÓN A ISAPRE")
+                    print("="*50)
+                    print(f"Nombre: {afiliado_encontrado['nombre']}")
+                    print(f"RUT: {afiliado_encontrado['rut']}")
+                    print(f"Edad: {afiliado_encontrado['edad']} años")
+                    print(f"Estado civil: {afiliado_encontrado['estado_civil']}")
+                    print(f"Monto plan: ${afiliado_encontrado['monto']}")
+                    print("="*50)
+                    print("Certificado generado electrónicamente")
+                    print(f"Fecha: 2025-06-14")  # Fecha actual
+                    print("="*50)
+                else:
+                    print("Error: No existe un afiliado con ese ID.")
+                    
+            except ValueError:
+                print("Error: Debe ingresar un número válido para el ID.")
+                
+        elif opcion == 4:
+            print("\n--- Salir del Programa ---")
+            print("Gracias por usar el sistema de certificados de Isapre")
+            print("Desarrollado por kevin salinas,jordany lubin")
+            print("Versión del programa: 1.0")
+            break  
+            
+        else:
+            print("Error: Opción inválida. Debe ser entre 1 y 4.")
+            
+    except ValueError:
+        print("Error: Debe ingresar un número válido para la opción del menú.")
